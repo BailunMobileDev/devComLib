@@ -2,6 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/bl_demo/bl_demo.iml" filepath="$PROJECT_DIR$/bl_demo/bl_demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bl_localeslib/bl_localeslib.iml" filepath="$PROJECT_DIR$/bl_localeslib/bl_localeslib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bl_uilib/bl_uilib.iml" filepath="$PROJECT_DIR$/bl_uilib/bl_uilib.iml" />
       <module fileurl="file://$PROJECT_DIR$/devComLib.iml" filepath="$PROJECT_DIR$/devComLib.iml" />
     </modules>
   </component>
