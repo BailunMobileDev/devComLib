@@ -19,6 +19,6 @@
 - Step 2. Add the dependency
    ```
 	dependencies {
-	        implementation 'com.github.BailunMobileDev:devComLib:Tag'
+	        implementation 'com.github.BailunMobileDev:devComLib:0.0.7'
 	}
    ``` 
