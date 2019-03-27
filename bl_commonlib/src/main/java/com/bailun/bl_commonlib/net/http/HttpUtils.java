@@ -6,6 +6,7 @@ import com.bailun.bl_commonlib.callback.CommLibCallback;
 import com.bailun.bl_commonlib.net.NetworkTransmissionDefine;
 
 import org.xutils.common.Callback;
+import org.xutils.http.HttpMethod;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
@@ -52,6 +53,9 @@ public class HttpUtils {
                 break;
             case NetworkTransmissionDefine.HttpMethod.POST:
                 cancelable = x.http().post(params, libCallback);
+                break;
+            case NetworkTransmissionDefine.HttpMethod.PUT:
+                cancelable = x.http().request(HttpMethod.PUT,params,libCallback);
                 break;
             default:
                 break;
