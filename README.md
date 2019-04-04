@@ -19,7 +19,7 @@
 - Step 2. Add the dependency
    ```
 	dependencies {
-	        implementation 'com.github.BailunMobileDev:devComLib:0.1.0'
+	        implementation 'com.github.BailunMobileDev:devComLib:0.1.5'
 	}
    ``` 
 
@@ -34,3 +34,5 @@
 #### bl_uilib
 ---
 常见view整理
+
+- [bl_btn](https://github.com/BailunMobileDev/devComLib/blob/master/bl_data/readme/bailunbtn.md)
