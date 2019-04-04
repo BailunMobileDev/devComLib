@@ -2,11 +2,6 @@
 <resources>
     <!--汇查查通用Button-->
     <declare-styleable name="BailunButton">
-        <attr name="app_btn_style" format="enum">
-            <enum name="hui_cha_cha_btn" value="0" />
-            <enum name="hui_hu_btn_blue" value="1" />
-            <enum name="hui_hu_btn_white" value="2" />
-        </attr>
         <attr name="bl_btn_style" format="enum">
             <enum name="only_text" value="0" />
             <enum name="with_loading" value="1" />
