@@ -57,6 +57,9 @@ public class HttpUtils {
             case NetworkTransmissionDefine.HttpMethod.PUT:
                 cancelable = x.http().request(HttpMethod.PUT,params,libCallback);
                 break;
+            case NetworkTransmissionDefine.HttpMethod.DELETE:
+                cancelable = x.http().request(HttpMethod.DELETE,params,libCallback);
+                break;
             default:
                 break;
         }
