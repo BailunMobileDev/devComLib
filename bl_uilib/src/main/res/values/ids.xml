@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--BailunButton-->
+    <item name="tv_content_bailun_btn" type="id" />
+    <item name="iv_content_bailun_btn" type="id"/>
+</resources>

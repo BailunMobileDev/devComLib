@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--汇查查通用Button-->
+    <declare-styleable name="BailunButton">
+        <attr name="app_btn_style" format="enum">
+            <enum name="hui_cha_cha_btn" value="0" />
+            <enum name="hui_hu_btn_blue" value="1" />
+            <enum name="hui_hu_btn_white" value="2" />
+        </attr>
+        <attr name="bl_btn_style" format="enum">
+            <enum name="only_text" value="0" />
+            <enum name="with_loading" value="1" />
+            <enum name="with_image" value="2" />
+        </attr>
+        <attr name="bl_btn_content" format="string" />
+        <attr name="bl_btn_enabled" format="boolean" />
+        <attr name="bl_btn_bg" format="color|reference" />
+        <attr name="bl_tv_color" format="reference" />
+        <attr name="bl_tv_loading_color" format="reference" />
+        <attr name="bl_btn_loading_bg" format="reference" />
+        <attr name="bl_iv_res" format="reference"/>
+    </declare-styleable>
+</resources>
