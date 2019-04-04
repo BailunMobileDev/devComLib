@@ -14,6 +14,7 @@ import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -66,17 +67,20 @@ public class BailunButton extends RelativeLayout {
     private ProgressBar pbLoading;
     private ImageView ivContent;
 
-    private String strContent;
     @BtnStyle
     private int btnStyle;
+    private String strContent;
+    private ColorStateList tvColor;
+    private int tvTextSize;
+
 
     private boolean enabled;
 
     private Drawable bgColor;
 
-    private ColorStateList tvColor;
-
     private Drawable ivRes;
+    private float ivWidth;
+    private float ivHeight;
 
     /**
      * 加载中背景
@@ -107,9 +111,12 @@ public class BailunButton extends RelativeLayout {
         enabled = array.getBoolean(R.styleable.BailunButton_bl_btn_enabled, true);
         bgColor = array.getDrawable(R.styleable.BailunButton_bl_btn_bg);
         tvColor = array.getColorStateList(R.styleable.BailunButton_bl_tv_color);
+        tvTextSize  =array.getDimensionPixelSize(R.styleable.BailunButton_bl_tv_text_size,DisplayUtils.sp2px(context,18));
         loadingBg = array.getDrawable(R.styleable.BailunButton_bl_btn_loading_bg);
         loadingTvColor = array.getColorStateList(R.styleable.BailunButton_bl_tv_loading_color);
         ivRes = array.getDrawable(R.styleable.BailunButton_bl_iv_res);
+        ivWidth = array.getDimensionPixelOffset(R.styleable.BailunButton_bl_iv_width, DisplayUtils.dip2px(context,20));
+        ivHeight = array.getDimensionPixelOffset(R.styleable.BailunButton_bl_iv_height, DisplayUtils.dip2px(context,20));
         array.recycle();
         initView(context);
     }
@@ -150,7 +157,7 @@ public class BailunButton extends RelativeLayout {
         tvContent.setLongClickable(false);
         tvContent.setTypeface(Typeface.DEFAULT_BOLD);
         tvContent.setText(strContent);
-        tvContent.setTextSize(18);
+        tvContent.setTextSize(DisplayUtils.px2sp(context,tvTextSize));
         if (tvColor == null) {
             tvColor = ContextCompat.getColorStateList(context, R.color.selector_bailun_btn_tv_color);
         }
@@ -185,8 +192,8 @@ public class BailunButton extends RelativeLayout {
         ivContent.setImageDrawable(ivRes);
         ivContent.setId(R.id.iv_content_bailun_btn);
         LayoutParams layoutParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        layoutParams.width = DisplayUtils.dip2px(context, 20);
-        layoutParams.height = DisplayUtils.dip2px(context, 20);
+        layoutParams.width = (int)ivWidth;
+        layoutParams.height = (int)ivHeight;
         layoutParams.rightMargin = DisplayUtils.dip2px(context, 8);
         layoutParams.addRule(RelativeLayout.CENTER_VERTICAL);
         layoutParams.addRule(RelativeLayout.START_OF, tvContent.getId());

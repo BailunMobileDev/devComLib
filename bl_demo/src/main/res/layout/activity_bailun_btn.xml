@@ -155,6 +155,25 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/btn_hui_hu_loading"
             app:layout_constraintTop_toBottomOf="@+id/btn_huihu_normal" />
+
+        <com.bailun.bl_uilib.BailunButton
+            android:id="@+id/btn_hui_hu_pic_2"
+            android:layout_width="160dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            app:bl_iv_width="30dp"
+            app:bl_iv_height="30dp"
+            app:bl_btn_bg="@drawable/selector_huihu_btn_blue_bg"
+            app:bl_btn_content="pic"
+            app:bl_btn_loading_bg="@drawable/shape_hui_hu_btn_loading_bg"
+            app:bl_btn_style="with_image"
+            app:bl_iv_res="@mipmap/ic_launcher"
+            app:bl_tv_color="@color/selector_huihu_btn_blue_tv_color"
+            app:bl_tv_text_size="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btn_hui_hu_loading"
+            app:layout_constraintTop_toBottomOf="@+id/btn_hui_hu_loading" />
     </android.support.constraint.ConstraintLayout>
 
 </LinearLayout>
