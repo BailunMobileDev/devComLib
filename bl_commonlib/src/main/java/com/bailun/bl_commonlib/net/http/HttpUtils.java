@@ -1,7 +1,5 @@
 package com.bailun.bl_commonlib.net.http;
 
-import android.util.Log;
-
 import com.bailun.bl_commonlib.callback.CommLibCallback;
 import com.bailun.bl_commonlib.net.NetworkTransmissionDefine;
 
@@ -16,22 +14,25 @@ import org.xutils.x;
 
 public class HttpUtils {
 
-    public static void asynHttpOp(final HttpRequestParam httpRequestParam, final CommLibCallback callback) {
+    public static Callback.Cancelable asynHttpOp(final HttpRequestParam httpRequestParam, final CommLibCallback callback) {
 
-        Log.e("@@@","--------------- 异步消息 ------------------");
+//        Log.e("@@@", "--------------- 异步消息 ------------------");
 
         RequestParams params = httpRequestParam.getRequestParams();
 
         Callback.CommonCallback libCallback = new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
-                if (callback != null) callback.onSuccess(result);
+                if (callback != null) {
+                    callback.onSuccess(result);
+                }
             }
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
-                if (callback != null)
+                if (callback != null) {
                     callback.onError(NetworkTransmissionDefine.ResponseResult.FAILED, ex.getMessage());
+                }
             }
 
             @Override
@@ -41,7 +42,9 @@ public class HttpUtils {
 
             @Override
             public void onFinished() {
-                if (callback != null) callback.onCompleted();
+                if (callback != null) {
+                    callback.onCompleted();
+                }
                 httpRequestParam.setRequestFinishResult(true);
             }
         };
@@ -55,10 +58,10 @@ public class HttpUtils {
                 cancelable = x.http().post(params, libCallback);
                 break;
             case NetworkTransmissionDefine.HttpMethod.PUT:
-                cancelable = x.http().request(HttpMethod.PUT,params,libCallback);
+                cancelable = x.http().request(HttpMethod.PUT, params, libCallback);
                 break;
             case NetworkTransmissionDefine.HttpMethod.DELETE:
-                cancelable = x.http().request(HttpMethod.DELETE,params,libCallback);
+                cancelable = x.http().request(HttpMethod.DELETE, params, libCallback);
                 break;
             default:
                 break;
@@ -84,11 +87,12 @@ public class HttpUtils {
                 }
             }, httpRequestParam.getTimeout());
         }
+        return cancelable;
     }
 
     public static void syncHttpOp(final HttpRequestParam httpRequestParam, final CommLibCallback callback) {
 
-        Log.e("@@@","--------------- 同步消息 ------------------");
+//        Log.e("@@@", "--------------- 同步消息 ------------------");
 
         //同步线程中去访问网路，必须要在子线程中
         new Thread(new Runnable() {
@@ -108,7 +112,7 @@ public class HttpUtils {
                             break;
                     }
 
-                    Log.e("@@@", "result:" + result);
+                    // Log.e("@@@", "result:" + result);
                     if (callback != null && !result.isEmpty()) callback.onSuccess(result);
 
                 } catch (Throwable throwable) {
@@ -120,6 +124,5 @@ public class HttpUtils {
                 if (callback != null) callback.onCompleted();
             }
         }).start();
-
     }
 }
