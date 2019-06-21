@@ -58,7 +58,7 @@ public abstract class ListDataView extends SmartRefreshLayout {
             }
         });
         initConfig();
-        showLoading();
+        if (config.isAutoShowLoading) showLoading();
     }
 
     private void initConfig(){
@@ -96,7 +96,7 @@ public abstract class ListDataView extends SmartRefreshLayout {
             @Override
             public void onClick(View v) {
                 if (listener != null) {
-                    showLoading();
+                    if (config.isAutoShowLoading) showLoading();
                     listener.onRetry();
                 }
             }
@@ -107,6 +107,7 @@ public abstract class ListDataView extends SmartRefreshLayout {
         wrapRecyclerView = new WrapRecyclerView(getContext());
         wrapRecyclerView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
         mStateViewParent.addView(wrapRecyclerView);
+        initRecyclerViewSetting(wrapRecyclerView);
     }
 
     private void changeView(@ListDataViewType int type) {
@@ -170,8 +171,8 @@ public abstract class ListDataView extends SmartRefreshLayout {
         finishRefresh();
         finishLoadMore();
         if (list == null || list.size() == 0) {
-            wrapRecyclerView.addFootView(mBottomView);
-            setEnableLoadMore(false);
+            if (config.isAutoShowBottom) wrapRecyclerView.addFootView(mBottomView);
+            if (config.isAutoEnableRefreshAndLoadMore) setEnableLoadMore(false);
             showList();
         } else {
             int oldCount = mAdapter.getItemCount();
@@ -185,11 +186,11 @@ public abstract class ListDataView extends SmartRefreshLayout {
 
     private void checkList(List list) {
         if (list.size() < config.pageSize) {
-            wrapRecyclerView.addFootView(mBottomView);
-            setEnableLoadMore(false);
+            if (config.isAutoShowBottom) wrapRecyclerView.addFootView(mBottomView);
+            if (config.isAutoEnableRefreshAndLoadMore) setEnableLoadMore(false);
         } else {
-            wrapRecyclerView.removeFootView(mBottomView);
-            setEnableLoadMore(true);
+            if (config.isAutoShowBottom) wrapRecyclerView.removeFootView(mBottomView);
+            if (config.isAutoEnableRefreshAndLoadMore) setEnableLoadMore(true);
         }
     }
 
@@ -218,6 +219,14 @@ public abstract class ListDataView extends SmartRefreshLayout {
         changeView(ListDataViewType.Error);
     }
 
+    public void isShowBottom(boolean isShow){
+        if (isShow){
+            wrapRecyclerView.addFootView(mBottomView);
+        } else {
+            wrapRecyclerView.removeFootView(mBottomView);
+        }
+    }
+
     public void showOther() {
         finishRefresh();
         finishLoadMore();
@@ -227,6 +236,10 @@ public abstract class ListDataView extends SmartRefreshLayout {
     public void setConfig(ListDataConfig config) {
         this.config = config;
         resetConfig();
+    }
+
+    public ListDataConfig getConfig() {
+        return config;
     }
 
     public View getLoadingView() {
@@ -247,6 +260,10 @@ public abstract class ListDataView extends SmartRefreshLayout {
 
     public void setListener(OnListDataViewEventListener listener) {
         this.listener = listener;
+    }
+
+    protected void initRecyclerViewSetting(RecyclerView recyclerView){
+
     }
 
     protected abstract View initOtherView();

@@ -26,6 +26,12 @@ public class ListDataConfig {
     protected RefreshFooter footer;
 //    RecyclerView滑动模式
     protected int overScrollMode = RecyclerView.OVER_SCROLL_NEVER;
+//    是否自动展示Loading
+    protected boolean isAutoShowLoading = true;
+//    是否自动展示底部
+    protected boolean isAutoShowBottom = true;
+//    是否自动控制刷新和加载的开关
+    protected boolean isAutoEnableRefreshAndLoadMore = true;
 
     public ListDataConfig(Context context) {
         header = new MaterialHeader(context);
@@ -59,6 +65,21 @@ public class ListDataConfig {
 
     public ListDataConfig setOverScrollMode(int overScrollMode) {
         this.overScrollMode = overScrollMode;
+        return this;
+    }
+
+    public ListDataConfig setAutoShowLoading(boolean autoShowLoading) {
+        isAutoShowLoading = autoShowLoading;
+        return this;
+    }
+
+    public ListDataConfig setAutoShowBottom(boolean autoShowBottom) {
+        isAutoShowBottom = autoShowBottom;
+        return this;
+    }
+
+    public ListDataConfig setAutoEnableRefreshAndLoadMore(boolean autoEnableRefreshAndLoadMore) {
+        isAutoEnableRefreshAndLoadMore = autoEnableRefreshAndLoadMore;
         return this;
     }
 }
