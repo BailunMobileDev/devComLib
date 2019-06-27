@@ -36,3 +36,4 @@
 常见view整理
 
 - [bl_btn](https://github.com/BailunMobileDev/devComLib/blob/master/bl_data/readme/bailunbtn.md)
+- [bl_permission](https://github.com/BailunMobileDev/devComLib/blob/master/bl_data/readme/bl_permission.md)

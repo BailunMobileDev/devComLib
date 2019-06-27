@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">PermissionLibrary</string>
+    <string name="forbid_tip">以下权限一个或者多个被禁止:%s。如果要使用此功能，请打开相关权限。提示:"设置——>应用——>汇乎——>权限管理"</string>
+</resources>

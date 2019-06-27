@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.bailun.bl_demo.listdataview.demo.view.ListDataViewActivity;
+import com.bailun.bl_demo.permission.AopPermissionActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,6 +24,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, ListDataViewActivity.class));
+            }
+        });
+        findViewById(R.id.btn_go_to_bailun_permission_demo).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, AopPermissionActivity.class));
             }
         });
     }
