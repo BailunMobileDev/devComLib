@@ -62,7 +62,7 @@ public class AopPermissionActivity extends Activity implements View.OnClickListe
         }
     }
 
-    @RequestPermissionForbid
+//    @RequestPermissionForbid
     private void requestPermission(int request){
         switch (request){
             case 0:
