@@ -1,5 +1,5 @@
-# Permissionlibrary说明
-Permissionlibrary是一个使用AOP来处理Android6.0后中运行时权限申请的库。
+# bl_permission说明
+bl_permission是一个使用AOP来处理Android6.0后中运行时权限申请的库。
 
 ## 配置
 在项目的build.gradle中增加
