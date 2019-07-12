@@ -30,8 +30,10 @@ public class ListDataConfig {
     protected boolean isAutoShowLoading = true;
 //    是否自动展示底部
     protected boolean isAutoShowBottom = true;
-//    是否自动控制刷新和加载的开关
-    protected boolean isAutoEnableRefreshAndLoadMore = true;
+//    是否自动控制刷新
+    protected boolean isAutoEnableRefresh = true;
+//    是否自动控制加载
+    protected boolean isAutoEnableLoadMore = true;
 
     public ListDataConfig(Context context) {
         header = new MaterialHeader(context);
@@ -78,8 +80,13 @@ public class ListDataConfig {
         return this;
     }
 
-    public ListDataConfig setAutoEnableRefreshAndLoadMore(boolean autoEnableRefreshAndLoadMore) {
-        isAutoEnableRefreshAndLoadMore = autoEnableRefreshAndLoadMore;
+    public ListDataConfig setAutoEnableRefresh(boolean autoEnableRefresh) {
+        isAutoEnableRefresh = autoEnableRefresh;
+        return this;
+    }
+
+    public ListDataConfig setAutoEnableLoadMore(boolean autoEnableLoadMore) {
+        isAutoEnableLoadMore = autoEnableLoadMore;
         return this;
     }
 }

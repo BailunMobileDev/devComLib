@@ -172,7 +172,7 @@ public abstract class ListDataView extends SmartRefreshLayout {
         finishLoadMore();
         if (list == null || list.size() == 0) {
             if (config.isAutoShowBottom) wrapRecyclerView.addFootView(mBottomView);
-            if (config.isAutoEnableRefreshAndLoadMore) setEnableLoadMore(false);
+            if (config.isAutoEnableLoadMore) setEnableLoadMore(false);
             showList();
         } else {
             int oldCount = mAdapter.getItemCount();
@@ -187,35 +187,35 @@ public abstract class ListDataView extends SmartRefreshLayout {
     private void checkList(List list) {
         if (list.size() < config.pageSize) {
             if (config.isAutoShowBottom) wrapRecyclerView.addFootView(mBottomView);
-            if (config.isAutoEnableRefreshAndLoadMore) setEnableLoadMore(false);
+            if (config.isAutoEnableLoadMore) setEnableLoadMore(false);
         } else {
             if (config.isAutoShowBottom) wrapRecyclerView.removeFootView(mBottomView);
-            if (config.isAutoEnableRefreshAndLoadMore) setEnableLoadMore(true);
+            if (config.isAutoEnableLoadMore) setEnableLoadMore(true);
         }
     }
 
     private void showList() {
-        setEnableRefresh(true);
+        if (config.isAutoEnableRefresh) setEnableRefresh(true);
         changeView(ListDataViewType.Content);
     }
 
     private void showEmpty() {
-        setEnableLoadMore(false);
-        setEnableRefresh(true);
+        if (config.isAutoEnableLoadMore) setEnableLoadMore(false);
+        if (config.isAutoEnableRefresh) setEnableRefresh(true);
         changeView(ListDataViewType.Empty);
     }
 
     private void showLoading() {
-        setEnableLoadMore(false);
-        setEnableRefresh(false);
+        if (config.isAutoEnableLoadMore) setEnableLoadMore(false);
+        if (config.isAutoEnableRefresh) setEnableRefresh(false);
         changeView(ListDataViewType.Loading);
     }
 
     public void showError() {
         finishRefresh();
         finishLoadMore();
-        setEnableLoadMore(false);
-        setEnableRefresh(false);
+        if (config.isAutoEnableLoadMore) setEnableLoadMore(false);
+        if (config.isAutoEnableRefresh) setEnableRefresh(false);
         changeView(ListDataViewType.Error);
     }
 
@@ -256,6 +256,10 @@ public abstract class ListDataView extends SmartRefreshLayout {
 
     public View getOtherView() {
         return mOtherView;
+    }
+
+    public RecyclerView getRecyclerView(){
+        return wrapRecyclerView;
     }
 
     public void setListener(OnListDataViewEventListener listener) {
