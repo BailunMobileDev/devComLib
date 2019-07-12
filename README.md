@@ -19,7 +19,7 @@
 - Step 2. Add the dependency
    ```
 	dependencies {
-	        implementation 'com.github.BailunMobileDev:devComLib:0.1.5'
+	        implementation 'com.github.BailunMobileDev:devComLib:0.2.2'
 	}
    ``` 
 
