@@ -28,7 +28,7 @@ dependencies {
     api 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-28'
     api 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-28'
     api 'com.android.support:recyclerview-v7:28.0.0'
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13-rc-1'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     api project(':bl_commonlib')

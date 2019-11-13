@@ -4,10 +4,9 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/bl_commonlib/bl_commonlib.iml" filepath="$PROJECT_DIR$/bl_commonlib/bl_commonlib.iml" />
       <module fileurl="file://$PROJECT_DIR$/bl_demo/bl_demo.iml" filepath="$PROJECT_DIR$/bl_demo/bl_demo.iml" />
-      <module fileurl="file://$PROJECT_DIR$/bl_localeslib/bl_localeslib.iml" filepath="$PROJECT_DIR$/bl_localeslib/bl_localeslib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bl_permission/bl_permission.iml" filepath="$PROJECT_DIR$/bl_permission/bl_permission.iml" />
       <module fileurl="file://$PROJECT_DIR$/bl_uilib/bl_uilib.iml" filepath="$PROJECT_DIR$/bl_uilib/bl_uilib.iml" />
       <module fileurl="file://$PROJECT_DIR$/devComLib.iml" filepath="$PROJECT_DIR$/devComLib.iml" />
-      <module fileurl="file://$PROJECT_DIR$/xutils/xutils.iml" filepath="$PROJECT_DIR$/xutils/xutils.iml" />
     </modules>
   </component>
 </project>
