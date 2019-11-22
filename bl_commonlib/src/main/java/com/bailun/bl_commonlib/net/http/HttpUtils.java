@@ -94,35 +94,29 @@ public class HttpUtils {
 
 //        Log.e("@@@", "--------------- 同步消息 ------------------");
 
-        //同步线程中去访问网路，必须要在子线程中
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                RequestParams params = httpRequestParam.getRequestParams();
-                try {
-                    String result = "";
-                    switch (httpRequestParam.getRequestMethod()) {
-                        case NetworkTransmissionDefine.HttpMethod.GET:
-                            result = x.http().getSync(params, String.class);
-                            break;
-                        case NetworkTransmissionDefine.HttpMethod.POST:
-                            result = x.http().postSync(params, String.class);
-                            break;
-                        default:
-                            break;
-                    }
-
-                    // Log.e("@@@", "result:" + result);
-                    if (callback != null && !result.isEmpty()) callback.onSuccess(result);
-
-                } catch (Throwable throwable) {
-                    throwable.printStackTrace();
-                    if (callback != null)
-                        callback.onError(NetworkTransmissionDefine.ResponseResult.FAILED, throwable.getMessage());
-                }
-
-                if (callback != null) callback.onCompleted();
+        RequestParams params = httpRequestParam.getRequestParams();
+        try {
+            String result = "";
+            switch (httpRequestParam.getRequestMethod()) {
+                case NetworkTransmissionDefine.HttpMethod.GET:
+                    result = x.http().getSync(params, String.class);
+                    break;
+                case NetworkTransmissionDefine.HttpMethod.POST:
+                    result = x.http().postSync(params, String.class);
+                    break;
+                default:
+                    break;
             }
-        }).start();
+
+            // Log.e("@@@", "result:" + result);
+            if (callback != null && !result.isEmpty()) callback.onSuccess(result);
+
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+            if (callback != null)
+                callback.onError(NetworkTransmissionDefine.ResponseResult.FAILED, throwable.getMessage());
+        }
+
+        if (callback != null) callback.onCompleted();
     }
 }
