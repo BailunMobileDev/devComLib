@@ -3,10 +3,8 @@ package com.bailun.wangjing.permissionlibrary;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
@@ -47,7 +45,7 @@ public class PermissionRequestActivity extends FragmentActivity {
         Log.d(Constant.TAG, "Activity request");
         permissionList = getIntent().getStringArrayListExtra(Constant.PERMISSION_LIST_NAME);
         requestCode = getIntent().getIntExtra(Constant.REQUEST_CODE_NAME, 0);
-        PermissionUtils.requestPermissions(new ActivityPermissionObjectWrap(this), permissionList, requestCode);
+        TLPermissionUtils.requestPermissions(new ActivityPermissionObjectWrap(this), permissionList, requestCode);
     }
 
 
@@ -62,7 +60,7 @@ public class PermissionRequestActivity extends FragmentActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        int result = PermissionUtils.getStateOnRequestPermissionsResult(grantResults, new ActivityPermissionObjectWrap(this), permissions);
+        int result = TLPermissionUtils.getStateOnRequestPermissionsResult(grantResults, new ActivityPermissionObjectWrap(this), permissions);
         if (result == Constant.HAS_PERMISSIONS) {
             callback.onAllow();
         } else if (result == Constant.NO_PERMISSIONS) {

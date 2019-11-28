@@ -44,7 +44,7 @@ public class PermissionRequestFragment extends Fragment {
         super.onCreate(savedInstanceState);
         permissionList = getArguments().getStringArrayList(Constant.PERMISSION_LIST_NAME);
         requestCode = getArguments().getInt(Constant.REQUEST_CODE_NAME, 0);
-        PermissionUtils.requestPermissions(new FragmentPermissionObjectWrap(this), permissionList, requestCode);
+        TLPermissionUtils.requestPermissions(new FragmentPermissionObjectWrap(this), permissionList, requestCode);
     }
 
     @Override
@@ -57,7 +57,7 @@ public class PermissionRequestFragment extends Fragment {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        int result = PermissionUtils.getStateOnRequestPermissionsResult(grantResults, new FragmentPermissionObjectWrap(this), permissions);
+        int result = TLPermissionUtils.getStateOnRequestPermissionsResult(grantResults, new FragmentPermissionObjectWrap(this), permissions);
         if (result == Constant.HAS_PERMISSIONS){
             callback.onAllow();
         } else if (result == Constant.NO_PERMISSIONS){

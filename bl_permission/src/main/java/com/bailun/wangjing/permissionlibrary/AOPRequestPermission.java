@@ -1,14 +1,9 @@
 package com.bailun.wangjing.permissionlibrary;
 
-import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.PermissionInfo;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.widget.Toast;
 
 import com.bailun.wangjing.permissionlibrary.annotation.RequestPermission;
 import com.bailun.wangjing.permissionlibrary.annotation.RequestPermissionForbid;
@@ -58,7 +53,7 @@ public class AOPRequestPermission {
         } else if (object instanceof FragmentActivity){
             tmpContext = (Context) object;
         }
-        PermissionUtils.requestByActivity(tmpContext, requestPermission.permissions()
+        TLPermissionUtils.requestByActivity(tmpContext, requestPermission.permissions()
                 , requestPermission.request(), new PermissionResult() {
             @Override
             public void onAllow() {
