@@ -67,6 +67,7 @@ public class PermissionUtils {
         }
     }
 
+
     /**
      * 判断是否有这些权限
      *
@@ -116,17 +117,17 @@ public class PermissionUtils {
     /**
      * 用于回调的时候判断是否拥有权限
      * @param grantResults 回调结果
-     * @param activity activity
+     * @param wrap 代理类
      * @param permissions 权限数组
      * @return
      */
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public static int getStateOnRequestPermissionsResult(int[] grantResults, Activity activity, String[] permissions) {
+    public static int getStateOnRequestPermissionsResult(int[] grantResults, PermissionRequestObjectWrap wrap, String[] permissions) {
         int results = Constant.HAS_PERMISSIONS;
         for (int i = 0; i < grantResults.length ; i++) {
             int grantResult = grantResults[i];
             if (Manifest.permission.SYSTEM_ALERT_WINDOW.equals(permissions[i])){
-                if (!hasFloatViewPermissionOnActivityResult(activity)){
+                if (!hasFloatViewPermissionOnActivityResult(wrap.getContext())){
                     results = Constant.NO_PERMISSIONS;
                     break;
                 }
@@ -141,7 +142,7 @@ public class PermissionUtils {
         if (Constant.HAS_PERMISSIONS != results) {
             boolean isForbid = true;
             for (String permission : permissions) {
-                isForbid &= !activity.shouldShowRequestPermissionRationale(permission);
+                isForbid &= !wrap.shouldShowRequestPermissionRationale(permission);
             }
             if (!isForbid) {
                 results = Constant.FORBID_PERMISSIONS;
@@ -152,6 +153,33 @@ public class PermissionUtils {
         return results;
     }
 
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public static void requestPermissions(PermissionRequestObjectWrap wrap, List<String> permissionList, int requestCode) {
+        boolean hasFloatView = false;
+        List<String> tmpList = new ArrayList<>();
+        for (String permission : permissionList){
+            if (Manifest.permission.SYSTEM_ALERT_WINDOW.equals(permission)){
+                hasFloatView = true;
+            } else {
+                tmpList.add(permission);
+            }
+        }
+        if (hasFloatView){
+            requestFloatViewPermission(wrap);
+        }
+        if (tmpList.size() > 0){
+            String[] permissions = new String[tmpList.size()];
+            tmpList.toArray(permissions);
+            wrap.requestPermissions(permissions, requestCode);
+        }
+    }
+
+    private static void requestFloatViewPermission(PermissionRequestObjectWrap wrap) {
+        Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
+        intent.setData(Uri.parse("package:" + wrap.getPackageName()));
+        wrap.startActivityForResult(intent, 1);
+    }
 
     /**
      * 判断是否拥有悬浮窗权限

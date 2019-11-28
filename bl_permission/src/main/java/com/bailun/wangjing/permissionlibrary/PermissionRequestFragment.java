@@ -9,6 +9,7 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -39,12 +40,11 @@ public class PermissionRequestFragment extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
+        Log.d(Constant.TAG, "Fragment request");
         super.onCreate(savedInstanceState);
         permissionList = getArguments().getStringArrayList(Constant.PERMISSION_LIST_NAME);
         requestCode = getArguments().getInt(Constant.REQUEST_CODE_NAME, 0);
-        String[] permissions = new String[permissionList.size()];
-        permissionList.toArray(permissions);
-        requestPermissions(permissions, requestCode);
+        PermissionUtils.requestPermissions(new FragmentPermissionObjectWrap(this), permissionList, requestCode);
     }
 
     @Override
@@ -57,7 +57,7 @@ public class PermissionRequestFragment extends Fragment {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        int result = PermissionUtils.getStateOnRequestPermissionsResult(grantResults, getActivity(), permissions);
+        int result = PermissionUtils.getStateOnRequestPermissionsResult(grantResults, new FragmentPermissionObjectWrap(this), permissions);
         if (result == Constant.HAS_PERMISSIONS){
             callback.onAllow();
         } else if (result == Constant.NO_PERMISSIONS){
