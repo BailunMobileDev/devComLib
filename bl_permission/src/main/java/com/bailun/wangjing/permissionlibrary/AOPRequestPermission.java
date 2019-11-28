@@ -1,10 +1,13 @@
 package com.bailun.wangjing.permissionlibrary;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PermissionInfo;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.widget.Toast;
 
 import com.bailun.wangjing.permissionlibrary.annotation.RequestPermission;
@@ -28,11 +31,17 @@ import java.lang.reflect.Method;
 public class AOPRequestPermission {
 
     private static Context context;
+    private static PermissionFailDefaultCallBack failDefaultCallBack;
 
 
     public static void init(Application application){
         context = application;
     }
+
+    public static void setFailDefaultCallBack(PermissionFailDefaultCallBack failDefaultCallBack) {
+        AOPRequestPermission.failDefaultCallBack = failDefaultCallBack;
+    }
+
     private static final String REQUEST_PERMISSION_POINTCUT =
             "execution(@com.bailun.wangjing.permissionlibrary.annotation.RequestPermission * *(..))";
 
@@ -43,22 +52,13 @@ public class AOPRequestPermission {
     @Around("requestPermissionMethod(requestPermission)")
     public void aroundJoinPoint(final ProceedingJoinPoint joinPoint, final RequestPermission requestPermission) {
         final Object object = joinPoint.getThis();
-        StringBuilder labels = new StringBuilder();
-        PackageManager pm = context.getPackageManager();
-        try{
-            for (int i = 0; i < requestPermission.permissions().length ; i ++){
-                PermissionInfo info = pm.getPermissionInfo(requestPermission.permissions()[i], 0);
-                if (i == requestPermission.permissions().length - 1){
-                    labels.append(info.loadLabel(pm));
-                } else {
-                    labels.append(info.loadLabel(pm)).append(",");
-                }
-            }
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
+        Context tmpContext = context;
+        if (object instanceof Fragment){
+            tmpContext = ((Fragment) object).getActivity();
+        } else if (object instanceof FragmentActivity){
+            tmpContext = (Context) object;
         }
-        final String tip = String.format(context.getString(R.string.forbid_tip), labels.toString(), getAppName(context));
-        PermissionUtils.request(context, requestPermission.permissions()
+        PermissionUtils.requestByActivity(tmpContext, requestPermission.permissions()
                 , requestPermission.request(), new PermissionResult() {
             @Override
             public void onAllow() {
@@ -71,18 +71,20 @@ public class AOPRequestPermission {
 
             @Override
             public void onRefuse(int request) {
-                findMethodByAnnotation(object, RequestPermissionRefuse.class, request, "");
+                findMethodByAnnotation(object, RequestPermissionRefuse.class,
+                        request, true, requestPermission.refuseTip());
             }
 
             @Override
             public void onForbid(int request) {
-                findMethodByAnnotation(object, RequestPermissionForbid.class, request, tip);
+                findMethodByAnnotation(object, RequestPermissionForbid.class,
+                        request, false, requestPermission.forbidTip());
             }
         });
     }
 
     private void findMethodByAnnotation(Object object, Class<? extends Annotation> annotationClass
-            , int requestCode, String tip){
+            , int requestCode, boolean isRefuse, String tip){
         if(object == null){
             return;
         }
@@ -104,22 +106,13 @@ public class AOPRequestPermission {
                 break;
             }
         }
-        if (!isHasAnnotation && annotationClass == RequestPermissionForbid.class){
-            Toast.makeText(context, tip, Toast.LENGTH_SHORT).show();
+        if (!isHasAnnotation && failDefaultCallBack != null){
+            if (isRefuse){
+                failDefaultCallBack.onRequestRefuse(requestCode, tip);
+            } else {
+                failDefaultCallBack.onRequestForbid(requestCode, tip);
+            }
         }
-    }
-
-    private static String getAppName(Context context) {
-        try {
-            PackageManager packageManager = context.getPackageManager();
-            PackageInfo packageInfo = packageManager.getPackageInfo(
-                    context.getPackageName(), 0);
-            int labelRes = packageInfo.applicationInfo.labelRes;
-            return context.getResources().getString(labelRes);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 
 }

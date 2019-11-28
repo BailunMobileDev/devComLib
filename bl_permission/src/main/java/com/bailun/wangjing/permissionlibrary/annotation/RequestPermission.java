@@ -14,4 +14,6 @@ import java.lang.annotation.Target;
 public @interface RequestPermission {
     String[] permissions();
     int request();
+    String refuseTip() default "";
+    String forbidTip() default "";
 }
