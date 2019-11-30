@@ -2,7 +2,7 @@
     package="com.bailun.wangjing.permissionlibrary" >
 
     <application>
-        <activity android:name=".activity.PermissionRequestActivity" android:theme="@style/Theme.Transparent"/>
+        <activity android:name=".PermissionRequestActivity" android:theme="@style/Theme.Transparent"/>
     </application>
 
 </manifest>

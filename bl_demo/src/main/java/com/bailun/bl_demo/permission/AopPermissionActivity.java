@@ -3,6 +3,7 @@ package com.bailun.bl_demo.permission;
 import android.Manifest;
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -12,7 +13,7 @@ import com.bailun.wangjing.permissionlibrary.annotation.RequestPermission;
 import com.bailun.wangjing.permissionlibrary.annotation.RequestPermissionForbid;
 import com.bailun.wangjing.permissionlibrary.annotation.RequestPermissionRefuse;
 
-public class AopPermissionActivity extends Activity implements View.OnClickListener {
+public class AopPermissionActivity extends FragmentActivity implements View.OnClickListener {
 
     private TextView tvInfo;
 
@@ -45,7 +46,7 @@ public class AopPermissionActivity extends Activity implements View.OnClickListe
         tvInfo.setText("申请单个权限被允许");
     }
 
-    @RequestPermission(permissions = {Manifest.permission.CALL_PHONE, Manifest.permission.CAMERA}, request = 1)
+    @RequestPermission(permissions = {Manifest.permission.CALL_PHONE, Manifest.permission.CAMERA, Manifest.permission.SYSTEM_ALERT_WINDOW}, request = 1)
     private void requestMultiplePermission(){
         tvInfo.setText("申请多个权限被允许");
     }
