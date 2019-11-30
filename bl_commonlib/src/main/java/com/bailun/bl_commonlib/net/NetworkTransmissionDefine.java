@@ -26,5 +26,7 @@ public class NetworkTransmissionDefine {
         public static final int SUCCESS = 0;
         public static final int FAILED = 1;
         public static final int TIME_OUT = 2;
+        public static final int NO_NETWORK = 3;
+        public static final int HTTP_ERROR = 4;
     }
 }

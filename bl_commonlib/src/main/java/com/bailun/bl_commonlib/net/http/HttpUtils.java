@@ -2,8 +2,10 @@ package com.bailun.bl_commonlib.net.http;
 
 import com.bailun.bl_commonlib.callback.CommLibCallback;
 import com.bailun.bl_commonlib.net.NetworkTransmissionDefine;
+import com.bailun.bl_commonlib.utils.NetWorkInfoUtils;
 
 import org.xutils.common.Callback;
+import org.xutils.ex.HttpException;
 import org.xutils.http.HttpMethod;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
@@ -16,7 +18,10 @@ public class HttpUtils {
 
     public static Callback.Cancelable asynHttpOp(final HttpRequestParam httpRequestParam, final CommLibCallback callback) {
 
-//        Log.e("@@@", "--------------- 异步消息 ------------------");
+        //无网络情况，直接返回结果，不进行网络请求
+        if (!noNetworkConnectedDispose(callback)) {
+            return null;
+        }
 
         RequestParams params = httpRequestParam.getRequestParams();
 
@@ -30,7 +35,19 @@ public class HttpUtils {
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
+                if (x.isDebug()) {
+                    //方便定位错误日志的位置
+                    ex.printStackTrace();
+                }
                 if (callback != null) {
+                    if (!NetWorkInfoUtils.isNetworkConnected(x.app().getApplicationContext())) {
+                        callback.onError(NetworkTransmissionDefine.ResponseResult.NO_NETWORK, "");
+                        return;
+                    }
+                    if (ex instanceof HttpException) {
+                        callback.onError(NetworkTransmissionDefine.ResponseResult.HTTP_ERROR, ex.getMessage());
+                        return;
+                    }
                     callback.onError(NetworkTransmissionDefine.ResponseResult.FAILED, ex.getMessage());
                 }
             }
@@ -92,7 +109,10 @@ public class HttpUtils {
 
     public static void syncHttpOp(final HttpRequestParam httpRequestParam, final CommLibCallback callback) {
 
-//        Log.e("@@@", "--------------- 同步消息 ------------------");
+        //无网络情况，直接返回结果，不进行网络请求
+        if (!noNetworkConnectedDispose(callback)) {
+            return;
+        }
 
         RequestParams params = httpRequestParam.getRequestParams();
         try {
@@ -118,5 +138,16 @@ public class HttpUtils {
         }
 
         if (callback != null) callback.onCompleted();
+    }
+
+
+    private static boolean noNetworkConnectedDispose(CommLibCallback callback) {
+        if (NetWorkInfoUtils.isNetworkConnected(x.app().getApplicationContext())) {
+            return true;
+        }
+        if (callback != null) {
+            callback.onError(NetworkTransmissionDefine.ResponseResult.NO_NETWORK, "");
+        }
+        return false;
     }
 }
