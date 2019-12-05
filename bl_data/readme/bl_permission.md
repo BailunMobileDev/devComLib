@@ -80,6 +80,7 @@ AOPRequestPermission.setFailDefaultCallBack(new PermissionFailDefaultCallBack() 
 </pre>
 ## 注意事项
 + 注解不要在静态方法上使用,不保证能生效.
++ 注解的方法返回值要为void
 
 ## 版本说明
 V0.0.1 实现悬浮窗权限适配,开放权限失败默认回调,逻辑优化,提供跳转设置页方法.
