@@ -1,6 +1,6 @@
 package com.bailun.bl_uilib.listdataview;
 
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 

@@ -3,8 +3,8 @@ package com.bailun.wangjing.permissionlibrary;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
-import android.support.v4.app.Fragment;
+import androidx.annotation.RequiresApi;
+import androidx.fragment.app.Fragment;
 
 /**
  * create by wangjing on 2019/11/28 0028

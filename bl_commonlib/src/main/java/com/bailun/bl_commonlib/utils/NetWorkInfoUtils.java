@@ -3,8 +3,8 @@ package com.bailun.bl_commonlib.utils;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.support.annotation.IntDef;
-import android.support.annotation.RequiresPermission;
+import androidx.annotation.IntDef;
+import androidx.annotation.RequiresPermission;
 import android.telephony.TelephonyManager;
 
 import java.lang.annotation.Retention;

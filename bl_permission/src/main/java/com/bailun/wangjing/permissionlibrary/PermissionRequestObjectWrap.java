@@ -3,7 +3,7 @@ package com.bailun.wangjing.permissionlibrary;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
+import androidx.annotation.RequiresApi;
 
 /**
  * create by wangjing on 2019/11/28 0028

@@ -1,16 +1,14 @@
 package com.bailun.bl_demo.permission;
 
 import android.Manifest;
-import android.app.Activity;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import androidx.fragment.app.FragmentActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.bailun.bl_demo.R;
 import com.bailun.wangjing.permissionlibrary.annotation.RequestPermission;
-import com.bailun.wangjing.permissionlibrary.annotation.RequestPermissionForbid;
 import com.bailun.wangjing.permissionlibrary.annotation.RequestPermissionRefuse;
 
 public class AopPermissionActivity extends FragmentActivity implements View.OnClickListener {

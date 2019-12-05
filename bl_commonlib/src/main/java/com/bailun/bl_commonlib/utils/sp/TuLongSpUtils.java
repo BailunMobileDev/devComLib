@@ -3,7 +3,7 @@ package com.bailun.bl_commonlib.utils.sp;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.support.annotation.WorkerThread;
+import androidx.annotation.WorkerThread;
 
 /**
  * TuLong SharedPreferences Base Utils
