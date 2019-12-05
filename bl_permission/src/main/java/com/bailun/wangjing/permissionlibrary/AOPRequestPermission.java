@@ -53,7 +53,7 @@ public class AOPRequestPermission {
         } else if (object instanceof FragmentActivity){
             tmpContext = (Context) object;
         }
-        TLPermissionUtils.requestByActivity(tmpContext, requestPermission.permissions()
+        BLPermissionUtils.requestByActivity(tmpContext, requestPermission.permissions()
                 , requestPermission.request(), new PermissionResult() {
             @Override
             public void onAllow() {

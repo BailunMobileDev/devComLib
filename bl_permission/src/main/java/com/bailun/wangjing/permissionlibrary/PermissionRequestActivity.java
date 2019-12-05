@@ -45,7 +45,7 @@ public class PermissionRequestActivity extends FragmentActivity {
         Log.d(Constant.TAG, "Activity request");
         permissionList = getIntent().getStringArrayListExtra(Constant.PERMISSION_LIST_NAME);
         requestCode = getIntent().getIntExtra(Constant.REQUEST_CODE_NAME, 0);
-        TLPermissionUtils.requestPermissions(new ActivityPermissionObjectWrap(this), permissionList, requestCode);
+        BLPermissionUtils.requestPermissions(new ActivityPermissionObjectWrap(this), permissionList, requestCode);
     }
 
 
@@ -60,7 +60,7 @@ public class PermissionRequestActivity extends FragmentActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        int result = TLPermissionUtils.getStateOnRequestPermissionsResult(grantResults, new ActivityPermissionObjectWrap(this), permissions);
+        int result = BLPermissionUtils.getStateOnRequestPermissionsResult(grantResults, new ActivityPermissionObjectWrap(this), permissions);
         if (result == Constant.HAS_PERMISSIONS) {
             callback.onAllow();
         } else if (result == Constant.NO_PERMISSIONS) {

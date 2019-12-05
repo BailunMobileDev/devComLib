@@ -30,7 +30,7 @@ import java.util.List;
  * create by wangjing on 2018/12/29 0029
  * description: 权限管理的工具类，以后加入其它方法
  */
-public class TLPermissionUtils {
+public class BLPermissionUtils {
 
 
     /**
